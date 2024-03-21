@@ -1,18 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Chat from './Chat'
-import { printconsole } from './redux/Actions'
+import { printConsole } from './redux/Actions'
 import { connect } from 'react-redux'
+import Apidata from './Apidata';
 
-const App = ({ printconsole }) => {
+const App = ({ printConsole, data }) => {
+  useEffect(() => {
+    console.log('data', data);
+  }, [printConsole, data])
+  
   return (
     <>
       <Chat />
-      <button onClick={() => printconsole('asd')}>redux</button>
+      <button onClick={() => printConsole({ action: 'asd', hun: 'pp' })}>redux</button>
+      {data}
+      <Apidata />
     </>
-  )
-}
-const mapstate = (state) => ({})
-const dispatchprops = (dispatch) => ({
-  printconsole: (item) => (dispatch(printconsole(item)))
-})
-export default connect(mapstate, dispatchprops)(App)
+  );
+};
+
+const mapStateToProps = (state) => ({
+  data: state.data,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  printConsole: (item) => dispatch(printConsole(item))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

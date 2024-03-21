@@ -1,11 +1,15 @@
-const initialstate = []
+const initialstate = { data: null }
 
-const reducer = (state = initialstate, action) => {
+const reducer = (state = initialstate, action, hun) => {
     switch (action.type) {
         case 'console':
-            console.log('first')
-            return state
+            console.log(action.payload)
+            return {
+                ...state,
+                data: action.payload
+            }
         default:
-            return console.log('state')
+            return state
     }
 }
+export default reducer;
